@@ -1,0 +1,42 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}
+    Шаблоны (образцы) документов
+{% endblock %}
+
+{% block description %}
+    Это динамическая страница шаблонов (образцов) документов формируемая на стороне клиента с помощью js библиотеки.
+{% endblock %}
+
+{% block content %}
+    <div class="container pb-3 mb-12">
+        <div class="row mt-3">
+            <div class="col-md-12 mt-5">
+                <h1 class="mb-5">Образцы (шаблоны)</h1>
+                <p>
+                    Используйте форму фильтрации для получения более точных результатов. Фильтр доступен по названию и типу документа. Сортировка документов по возрастанию/убыванию осущестляется по нажатию на столбцы.
+                </p>
+                <div class="d-flex my-5 flex-wrap ">
+                    <table id="myTable" class="table" data-template="{{ template.id }}" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>№ п/п</th>
+                            <th>Наименование документа</th>
+                            <th>Тип</th>
+                            <th>Подтип</th>
+                            <th>Добавлен</th>
+                        </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/v/dt/dt-2.2.1/sp-2.3.3/sl-3.0.0/datatables.min.js"></script>
+    <script src="{{ init.PATH }}/assets/js/dataTable.js"></script>
+{% endblock %}

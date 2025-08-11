@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="84d49de4-a0b1-4a40-bab7-f51c343c358e" name="test.ot-doc.ru">
+        <fileTransfer rootFolder="/var/www/u1656040/data/www/test.ot-doc.ru" accessType="SFTP" host="31.31.198.114" port="22" sshConfigId="aac5dd62-06de-4c85-8ff2-212cf740c697" sshConfig="u1656040@31.31.198.114:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

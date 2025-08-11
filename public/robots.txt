@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ot-doc.ru/sitemap/sitemap.xml
+Sitemap: https://ot-doc.ru/sitemap/documents_sitemap.xml

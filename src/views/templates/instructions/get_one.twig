@@ -1,0 +1,35 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}
+    Скачать {{ document.title }}
+{% endblock %}
+
+{% block description %}
+    Скачать образец {{ document.title }}. Дата актуализации {{ document.date | date('d.m.Y') }}
+{% endblock %}
+
+{% block content %}
+    <div class="container pb-3 mb-12">
+        <div class="row my-5">
+            <div class="col-md-6 col-sm-12 mt-5">
+                <h1 class="fs-4 mb-5">Скачать {{ document.title }}</h1>
+                <p>Тип: {{ document.type_name_1 }}, {{ document.type_name_2 }}</p>
+                <p>Дата добавления: {{ document.date | date('d.m.Y') }} г.</p>
+                <p>Размер файла: {{ document.size }}</p>
+                <p>Файл: {{ document.mime }}</p>
+                <p>Скачиваний: {{ document.count }}</p>
+                <p><small>Для скачивания документа нажмите на кнопку скачать. Скачивание начнется автоматически. </small>
+                </p>
+                {% include '/templates/parts/download.twig' %}
+            </div>
+
+            <div class="col-md-6 col-sm-12 mt-5 ">
+                <h5 class="mb-3">Предварительный просмотр текста документа</h5>
+                <div class="preview">
+{#                    <iframe src="{{ preview_document|raw }}" height="400" style="border: none;"></iframe>#}
+                    <div oncontextmenu="return false;" onselectstart="return false;">{{ preview_document|raw }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

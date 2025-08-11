@@ -1,0 +1,38 @@
+<!Doctype html>
+<html lang="ru" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ init.PATH }}/assets/css/libs/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="{{ init.PATH }}/assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="{{ init.PATH }}/assets/css/loading.css" type="text/css">
+    <link rel="stylesheet" href="{{ init.PATH }}/assets/css/flash.min.css" type="text/css">
+    <link rel="stylesheet" href="{{ init.PATH }}/assets/css/libs/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="{{ init.PATH }}/assets/css/libs/magnific-popup.css" type="text/css">
+    <link rel="icon" href="https://ot-doc.ru/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://ot-doc.ru{{ init.URI }}">
+    <title>{{ title }}</title>
+    <meta name="description" content="{% if description is empty %}Поиск инструкций по охране труда по профессиям и видам работ{% else %}{{ description }}{% endif %}">
+    <meta name="keywords" content="{% if keywords is empty %}Инструкции по охране труда, инструкции, охрана труда, инструкции по технике безопасности{% else %}{{ keywords }}{% endif %}">
+    <link href="{{ init.PATH }}/assets/css/libs/datatables.min.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ init.PATH }}/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ init.PATH }}/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ init.PATH }}/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="{{ init.PATH }}/assets/favicon/site.webmanifest">
+    <script src="https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LZKNE1KEDM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-LZKNE1KEDM');
+    </script>
+  <!-- Yandex.RTB -->
+  <script>window.yaContextCb=window.yaContextCb||[]</script>
+  <script src="https://yandex.ru/ads/system/context.js" async></script>
+</head>
+<body class="d-flex flex-column h-100">

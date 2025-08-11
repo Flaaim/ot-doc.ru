@@ -1,0 +1,65 @@
+{% set init = app.config.init %}
+
+{% block head %}
+    {% include "admin/parts/header.twig"  with {title: block('title')} %}
+{% endblock %}
+
+
+{% block nav %}
+    {% include "admin/parts/nav.twig" %}
+{% endblock %}
+
+{% block aside %}
+    {% include "admin/parts/aside.twig" %}
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+{% block footer %}
+    {% include "admin/parts/footer.twig" %}
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- daterangepicker -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/moment/moment.min.js"></script>
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="{{ init.PATH }}/assets/adminLte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.2.2/datatables.min.css" rel="stylesheet" integrity="sha384-EMec0P+bM7BzPRifh0Da2z4pEzNGzbb1pmzxZ/E0fZjPky+56QS2Y+x6U/00/L2z" crossorigin="anonymous">
+
+    <script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.2.2/datatables.min.js" integrity="sha384-h+dgoYlXhgp1Rdr2BQORgRZ8uTV8KHpMEDxsAXD5RMRvytPCeeiubqmZx5ZIewmp" crossorigin="anonymous"></script>
+
+    <script src="{{ init.PATH }}/assets/js/flash.min.js"></script>
+    <script src="{{ init.PATH }}/assets/adminLte/dist/js/adminlte.js"></script>
+    <script src="{{ init.PATH }}/assets/js/admin/file-upload.js"></script>
+
+{% endblock %}
+</body>
+</html>

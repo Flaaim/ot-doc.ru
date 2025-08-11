@@ -1,0 +1,54 @@
+{% set init = app.config.init %}
+
+{% block head %}
+    {% include "/parts/header.twig"  with {title: block('title'), description: block('description')
+        } %}
+{% endblock %}
+
+<main class="flex-shrink-0">
+
+    {% block navbar %}
+        {% include "/parts/nav.twig" %}
+    {% endblock %}
+
+    {% block breadcrumbs %}
+    {% endblock %}
+        {% include 'inc/alert.twig' %}
+
+    {% block content %}
+
+    {% endblock %}
+    <div id="overlay">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
+</main>
+<!-- Yandex.RTB R-A-15250751-1 -->
+<script>
+  window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+      "blockId": "R-A-15250751-1",
+      "type": "fullscreen",
+      "platform": "desktop"
+    })
+  })
+</script>
+{% block footer %}
+
+    {% include "/parts/footer.twig" %}
+{% endblock %}
+</body>
+
+{% block script %}
+    <script src="{{ init.PATH }}/assets/js/libs/jquery.min.js"></script>
+    <script src="{{ init.PATH }}/assets/js/libs/jquery.magnific-popup.min.js"></script>
+    <script src="{{ init.PATH }}/assets/js/download.js"></script>
+    <script src="{{ init.PATH }}/assets/js/app.js"></script>
+    <script src="{{ init.PATH }}/assets/js/auth.js"></script>
+    <script src="{{ init.PATH }}/assets/js/flash.min.js"></script>
+    <script src="{{ init.PATH }}/assets/js/libs/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
+
+</html>

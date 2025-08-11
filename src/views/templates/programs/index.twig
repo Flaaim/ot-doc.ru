@@ -1,0 +1,76 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}
+    Шаблоны (образцы) программ обучений по охране труда
+{% endblock %}
+
+{% block description %}
+    Шаблоны программ обучений по охране труда и другим смежным направлениям работы.
+{% endblock %}
+
+{% block content %}
+    <div class="container pb-3 mb-12">
+        <div class="row mt-3">
+            <div class="col-md-12 mt-5">
+                <h1 class="mb-5">Образцы (шаблоны) программ обучений</h1>
+                <p>
+                    Ниже в таблице вы найдете образцы (шаблоны) типовых программ обучений по охране труда и другим смежным направлениям работы.
+                </p>
+                <p> <b>Всего программ: {{ total }}</b></p>
+                <div class="attention">
+                    <h5>Внимание!</h5>
+                    <p>Ниже приведена статическая страница с документами, если вам необходимы такие функции как <b>фильтрация данных</b>, <b>сортировка</b>, <b>поиск</b> и т.д., переходите по <a href="/document/js/{{ template.slug }}">ссылке</a></p>
+                </div>
+                <div class="d-flex my-5 flex-wrap ">
+                    <table id="myTable" class="table" data-template="{{ template.id }}" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>№ п/п</th>
+                            <th>Наименование документа</th>
+                            <th>Тип</th>
+                            <th>Подтип</th>
+                            <th>Добавлен</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for key, document  in documents %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td><a href="/document/{{ template.id }}/{{ document.id }}">{{ document.title }}</a></td>
+                                <td>{{ document.type_name_1 }}</td>
+                                <td>{{ document.type_name_2 }}</td>
+                                <td>{{ document.date|date('d.m.Y') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ pagination|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 ">
+                <h2>Последние добавленные программы</h2>
+                <div class="d-flex flex-wrap">
+
+                    {% for document in lasts %}
+                        <div class="card document-card m-3">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <small><a href="/document/{{ document.template_id }}/{{ document.id }}">{{ document.title }}</a></small>
+                                </div>
+                            </div>
+                            <div class="card-footer document-footer d-flex justify-content-between">
+                                <span><i class="fa-regular fa-calendar-days"></i> {{ document.date | date("d.m.Y") }}</span>
+                                <span>Размер:  {{ document.size }}</span>
+                                <span><i class="fa-solid fa-download"></i> {{ document.count }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

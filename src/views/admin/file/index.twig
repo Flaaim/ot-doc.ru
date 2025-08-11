@@ -1,0 +1,42 @@
+{% extends "layouts/admin_layout.twig" %}
+
+{% block title %}
+    Админка сайта
+{% endblock %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-3">Загрузить файл</h1>
+                        <div class="mb-3">
+                            <form id="upload" encType="multipart/form-data" action="/admin/file/upload">
+                                <input type="file" class="form-control" name="file[]" multiple="multiple" />
+                                <input type="text" name="category" value="fire">
+                                <button type="submit" id="file-upload">Загрузить</button>
+                            </form>
+
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

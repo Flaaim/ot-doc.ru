@@ -1,0 +1,67 @@
+{% extends "layouts/admin_layout.twig" %}
+
+{% block title %}
+    Загрузка
+{% endblock %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-3">Загрузить прочий документ</h1>
+                        <div class="mb-3">
+                            <form id="upload" encType="multipart/form-data" action="/admin/file/upload">
+                                <p>
+                                    <b>Выберите тип прочего документа:</b>
+                                </p>
+                                <div class="form-group">
+                                    {% for type in types %}
+                                        <div class="form-check">
+                                            <input class="form-check-input"  type="checkbox" name="type[]" value="{{ type.id }}">
+                                            <label class="form-check-label">{{ type.name }}</label>
+                                        </div>
+                                        {% if type.children != null %}
+
+                                            {% for children_type in type.children %}
+                                            <div class="form-check mx-4">
+                                                <input class="form-check-input" type="checkbox" name="type[]" value="{{ children_type.id }}">
+                                                <label class="form-check-label" >{{ children_type.name }}</label>
+                                            </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="custom-file">
+                                <input type="file" id="instructions_upload" class="custom-file-input" name="file[]" multiple="multiple" />
+                                    <label class="custom-file-label" for="instructions_upload">Выберите файлы</label>
+                                </div>
+                                <input type="hidden" name="template_id" value="{{ template.id }}">
+                                <div class="input-group-append mt-3">
+                                <button type="submit"  class="btn btn-outline-success" id="file-upload">Загрузить</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

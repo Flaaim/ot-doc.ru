@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+        <loc>https://ot-doc.ru/sitemap/instructions_sitemap.xml</loc>
+        <lastmod>2025-03-19T18:23:17+00:00</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>https://ot-doc.ru/sitemap/journals_sitemap.xml</loc>
+        <lastmod>2025-03-19T18:23:17+00:00</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>https://ot-doc.ru/sitemap/orders_sitemap.xml</loc>
+        <lastmod>2025-03-19T18:23:17+00:00</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>https://ot-doc.ru/sitemap/other_sitemap.xml</loc>
+        <lastmod>2025-03-19T18:23:17+00:00</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>https://ot-doc.ru/sitemap/programs_sitemap.xml</loc>
+        <lastmod>2025-03-19T18:23:17+00:00</lastmod>
+    </sitemap>
+    <sitemap>
+        <loc>https://ot-doc.ru/sitemap/provisions_sitemap.xml</loc>
+        <lastmod>2025-03-19T18:23:17+00:00</lastmod>
+    </sitemap>
+</sitemapindex>

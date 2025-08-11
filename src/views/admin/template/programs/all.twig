@@ -1,0 +1,53 @@
+{% extends "layouts/admin_layout.twig" %}
+
+{% block title %}
+    Админка сайта
+{% endblock %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-3">Образцы документов</h1>
+                        <div class="mb-3">
+                            <a href="/admin/document/programs/upload" class="btn btn-primary">Добавить документ</a>
+                        </div>
+                        <table id="myTable" data-template="{{ template.id }}" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>№ п/п</th>
+                                <th>Наименование документа</th>
+                                <th>Тип</th>
+                                <th>Подтип</th>
+                                <th>Дата</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="{{ init.PATH }}/assets/js/admin/dt_instructions.js"></script>
+{% endblock %}

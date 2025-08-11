@@ -1,0 +1,8 @@
+<?php
+
+namespace App\Interface;
+
+interface MailSenderInterface
+{
+    public function send(string $email, string $subject, string $message): bool;
+}

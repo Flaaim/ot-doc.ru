@@ -1,0 +1,45 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}
+   Регистрация в личном кабинете
+{% endblock %}
+
+{% block description %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-12 ">
+                <div class="card-mb-3">
+                    <div class="col-md-6">
+                        <div class="card-body mx-3 my-3">
+                            <h2 class="my-3">Регистрация на сайте</h2>
+                            <form action="/auth/signup" method="POST">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="email">Ваш Email:</label>
+                                    <input type="email" id="email" name="email" class="form-control" value="{{ user_email }}"/>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="password">Ваш пароль:</label>
+                                    <input type="password" id="password" name="password" class="form-control" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="confirm_password">Повторите пароль:</label>
+                                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" />
+                                </div>
+                                <div class="col my-4">
+                                    <input type="submit" class="btn btn-outline-secondary" value="Зарегистрироваться">
+                                </div>
+                                <p><a href="/auth/login">Войти на сайт</a> | <a href="/auth/reset">Восстановить пароль</a> </p>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

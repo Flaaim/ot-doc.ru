@@ -1,0 +1,83 @@
+{% extends "layouts/admin_layout.twig" %}
+
+{% block title %}
+    Загрузка
+{% endblock %}
+
+{% block description %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-3">Загрузить журнал</h1>
+                        <div class="mb-3">
+                            <form id="upload" encType="multipart/form-data" action="/admin/file/upload">
+                                <p>
+                                    <b>Выберите тип журнала:</b>
+                                </p>
+                                <div class="form-group">
+                                    {% for type in types %}
+                                        <div class="form-check">
+                                            <input class="form-check-input"  type="checkbox" name="type[]" value="{{ type.id }}">
+                                            <label class="form-check-label">{{ type.name }}</label>
+                                        </div>
+                                        {% if type.children != null %}
+
+                                            {% for children_type in type.children %}
+                                            <div class="form-check mx-4">
+                                                <input class="form-check-input" type="checkbox" name="type[]" value="{{ children_type.id }}">
+                                                <label class="form-check-label" >{{ children_type.name }}</label>
+                                            </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+{#                                    <div class="form-check">#}
+{#                                        <input class="form-check-input" id="safety_instruction" type="checkbox" name="type[]" value="1">#}
+{#                                        <label class="form-check-label" for="safety_instruction">По охране труда</label>#}
+{#                                    </div>#}
+{#                                    <div class="form-check">#}
+{#                                        <input class="form-check-input" id="fire_instruction" type="checkbox" name="type[]" value="2">#}
+{#                                        <label class="form-check-label" for="fire_instruction">Пожарной безопасности</label>#}
+{#                                    </div>#}
+{#                                    <div class="form-check">#}
+{#                                        <input class="form-check-input"  id="prom_instruction" type="checkbox" name="type[]" value="4">#}
+{#                                        <label class="form-check-label" for="prom_instruction">Производственная</label>#}
+{#                                    </div>#}
+{#                                    <div class="form-check">#}
+{#                                        <input class="form-check-input" id="job_instruction" type="checkbox" name="type[]" value="5">#}
+{#                                        <label class="form-check-label" for="job_instruction">Должностная</label>#}
+{#                                    </div>#}
+                                </div>
+                                <div class="custom-file">
+                                <input type="file" id="instructions_upload" class="custom-file-input" name="file[]" multiple="multiple" />
+                                    <label class="custom-file-label" for="instructions_upload">Выберите файлы</label>
+                                </div>
+                                <input type="hidden" name="template_id" value="{{ template.id }}">
+                                <div class="input-group-append mt-3">
+                                <button type="submit"  class="btn btn-outline-success" id="file-upload">Загрузить</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}

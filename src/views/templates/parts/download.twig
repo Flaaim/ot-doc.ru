@@ -1,0 +1,20 @@
+<p>
+
+{% if is_user_logged_in(app) == true %}
+    {%  if subscribe.status == 'active' %}
+    <small>Вы можете скачивать документы без ограничений. Ваша подписка активна</small>
+    {% else %}
+    <small>
+        Вам доступно {{ profile.attempts }} пробных скачиваний. Чтобы снять ограничение необходимо <a href="/payment/subscribe">приобрести подписку</a>
+    </small>
+    {% endif %}
+{% endif %}
+</p>
+{% if is_user_logged_in(app) == true  %}
+    <div class="d-flex align-items-center mt-3">
+        <button type="button" id="get-document" data-template="{{ document.template_id }}" data-id="{{ document.id }}" class="btn btn-outline-secondary">Скачать</button>
+    </div>
+{% else %}
+    <button type="button" id="login" class="btn btn-outline-secondary mt-3">Скачать</button>
+{% endif %}
+{% include 'auth/popup_login.twig' %}
