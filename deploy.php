@@ -28,6 +28,7 @@ set('shared_files', ['config/env/.env']);
 // Общие директории
 set('shared_dirs', [
     'public/upload',
+    'config/env',
     'logs',
     'cache'
 ]);
