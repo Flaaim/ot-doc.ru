@@ -11,10 +11,10 @@ return [
     ],
     'debug' => filter_var($_ENV['DEBUG'], FILTER_VALIDATE_BOOLEAN),
     'init' => [
-        'ROOT' => dirname(__DIR__, 2),
-        'WWW' => dirname(__DIR__, 2) . '/public',
+        'ROOT' => dirname(__DIR__, 1),
+        'WWW' => dirname(__DIR__, 1) . '/public',
         'PATH' => $_ENV['INIT_PATH'],
-        'UPLOAD_DIR' => dirname(__DIR__, 2) . '/public/upload/',
+        'UPLOAD_DIR' => dirname(__DIR__, 1) . '/public/upload/',
         'HOST' => $_ENV['INIT_HOST'],
         'URI' => strtok($_SERVER['REQUEST_URI'], '?'),
     ],
