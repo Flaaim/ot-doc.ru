@@ -1,20 +1,12 @@
-<p>
-
 {% if is_user_logged_in(app) == true %}
-    {%  if subscribe.status == 'active' %}
-    <small>Вы можете скачивать документы без ограничений. Ваша подписка активна</small>
+    {% if subscribe.status == 'active' %}
+        <div class="alert alert-success fs-6 py-2 px-3 border-0 bg-success bg-opacity-10 text-success mb-3"><small><i class="fa-solid fa-check-circle me-1"></i> <strong>Безлимит:</strong> подписка активна</small></div>
+        <button type="button" id="get-document" data-template="{{ document.template_id }}" data-id="{{ document.id }}" class="btn btn-primary btn-lg w-100 shadow-sm fw-bold"><i class="fa-solid fa-cloud-arrow-down me-2"></i>Скачать документ</button>
     {% else %}
-    <small>
-        Вам доступно {{ profile.attempts }} пробных скачиваний. Чтобы снять ограничение необходимо <a href="/payment/subscribe">приобрести подписку</a>
-    </small>
+        <div class="alert alert-warning fs-6 py-2 px-3 border-0 bg-warning bg-opacity-10 text-dark mb-3"><small><i class="fa-solid fa-circle-info me-1 text-warning"></i> Доступно <strong>{{ profile.attempts }}</strong> пробных скачиваний. <a href="/payment/subscribe" class="alert-link text-decoration-underline">Снять лимит</a></small></div>
+        <button type="button" id="get-document" data-template="{{ document.template_id }}" data-id="{{ document.id }}" class="btn btn-primary btn-lg w-100 shadow-sm fw-bold"><i class="fa-solid fa-cloud-arrow-down me-2"></i>Скачать файл</button>
     {% endif %}
-{% endif %}
-</p>
-{% if is_user_logged_in(app) == true  %}
-    <div class="d-flex align-items-center mt-3">
-        <button type="button" id="get-document" data-template="{{ document.template_id }}" data-id="{{ document.id }}" class="btn btn-outline-secondary">Скачать</button>
-    </div>
 {% else %}
-    <button type="button" id="login" class="btn btn-outline-secondary mt-3">Скачать</button>
+    <button type="button" id="login" class="btn btn-primary btn-lg w-100 shadow-sm fw-bold mb-2"><i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Войти для скачивания</button>
 {% endif %}
 {% include 'auth/popup_login.twig' %}

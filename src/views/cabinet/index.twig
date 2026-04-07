@@ -23,26 +23,27 @@
                         <span class="input-group-text">{{ email }}</span>
                     </div>
 
-                    {% if subscribe.status == 'inactive' %}
+                    {% if not subscribe or subscribe.status != 'active' %}
                     <div class="input-group mb-3">
                         <span class="input-group-text">Доступное количество скачиваний:</span>
-                        <span class="input-group-text">{{ profile.attempts }}</span>
+                        <span class="input-group-text fw-bold">{{ profile.attempts }}</span>
                     </div>
                     {% endif %}
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Подписка:</span>
-                            {% if subscribe.status == 'active' %}
-                            <span class="input-group-text">Активна</span>
+                        <span class="input-group-text">Статус подписки:</span>
+                        {% if subscribe and subscribe.status == 'active' %}
+                            <span class="input-group-text text-success fw-bold">Активна</span>
+                            {% if subscribe.expires_at is null %}
+                                <span class="input-group-text">Действует: ∞ (Навсегда)</span>
                             {% else %}
-                                <span class="input-group-text">Не действует</span>
-                                <span class="input-group-text">
-                                    <a href="/payment/subscribe">Приобрести</a>
-                                </span>
+                                <span class="input-group-text">Действует до: {{ subscribe.expires_at|date('d.m.Y H:i') }}</span>
                             {% endif %}
+                            <a href="/payment/subscribe" class="btn btn-outline-primary ms-2 align-self-center rounded">Продлить / Сменить тариф</a>
+                        {% else %}
+                            <span class="input-group-text text-danger fw-bold">Не действует</span>
+                            <a href="/payment/subscribe" class="btn btn-primary ms-2 align-self-center rounded">Приобрести подписку</a>
+                        {% endif %}
                     </div>
-                  <a href="https://t.me/help_ot_subscribe_bot" target="_blank">Получить комплект документации на 2025 год</a> (Более 190 документов ЛНА, 44 чек листа, 46 форм наряд допусков и образцов заполнения к ним).
-                  <h4>Другие проекты:</h4>
-
                 </div>
 
 

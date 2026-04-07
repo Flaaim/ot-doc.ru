@@ -22,12 +22,13 @@ class SubscribeRepository implements Repository
         $result->id = $row['id'];
         $result->user_id = $row['user_id'];
         $result->status = $row['status'];
+        $result->expires_at = $row['expires_at'] ?? null;
         return $result;
     }
 
-    public function setSubscribe(int $user_id): bool
+    public function setSubscribe(int $user_id, string $plan = 'lifetime'): bool
     {
-        return $this->model->setSubscribe($this->table, $user_id);
+        return $this->model->setSubscribe($this->table, $user_id, $plan);
     }
 
     public function isSubscribeIsActive($user_id): ?Subscribe

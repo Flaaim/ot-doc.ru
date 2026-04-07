@@ -2,40 +2,29 @@
 
 use App\Controllers\AbstractController;
 use App\Error;
-use FastRoute\Dispatcher;
-
+use Slim\Factory\AppFactory;
+use App\LegacyInvoker;
 
 require __DIR__ . '/vendor/autoload.php';
-//http_response_code(500);
 
 session_start();
-
 
 $container = require __DIR__. '/config/container.php';
 
 new Error($container['twig'], $container['config']['debug'], new \App\Logger());
 
+$psr11Container = new \Pimple\Psr11\Container($container);
+AppFactory::setContainer($psr11Container);
 
-$dispatcher = require __DIR__. '/config/routes.php';
+$app = AppFactory::create();
 
-$uri = $_SERVER['REQUEST_URI'];
-$pos = strpos($uri, '?');
-if ($pos !== false) {
-    $uri = substr($uri, 0, $pos);
-}
-$uri = rawurldecode($uri);
+$routeCollector = $app->getRouteCollector();
+$routeCollector->setDefaultInvocationStrategy(new LegacyInvoker($container));
 
+$app->addRoutingMiddleware();
+$app->addErrorMiddleware($container['config']['debug'] ?? false, true, true);
 
-$routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $uri);
-switch ($routeInfo[0]) {
-    case Dispatcher::NOT_FOUND:
-        http_response_code(404);
-        throw new \Exception('Страница не найдена', 404);
-    case Dispatcher::FOUND:
-        [$class, $method] = $routeInfo[1];
-        /** @var AbstractController $instance */
-        $instance = new $class;
-        $instance->setContainer($container);
-        call_user_func_array([$instance, $method], [$routeInfo[2]]);
-        break;
-}
+$routes = require __DIR__. '/config/routes.php';
+$routes($app);
+
+$app->run();

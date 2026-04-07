@@ -11,55 +11,149 @@
 {% block content %}
     <div class="container pb-3 mb-12">
         <div class="row my-5">
-            <div class="col-md-6 col-sm-12 mt-5">
-                <h1 class="fs-4 mb-5">Скачать {{ document.title }}</h1>
-                <p>Тип: {{ document.type_name_1 }}, {{ document.type_name_2 }}</p>
-                <p>Дата добавления: {{ document.date | date('d.m.Y') }} г.</p>
-                <p>Размер файла: {{ document.size }}</p>
-                <p>Файл: {{ document.mime }}</p>
-                <p>Скачиваний: {{ document.count }}</p>
-                <p><small>Для скачивания документа нажмите на кнопку скачать. Скачивание начнется автоматически. </small>
-                </p>
-                {% include '/templates/parts/download.twig' %}
-                <p class="mt-3">
-                <a href="https://t.me/help_ot_subscribe_bot" target="_blank">Получить комплект документации на 2025 год</a> (Более 190 документов ЛНА, 44 чек листа, 46 форм наряд допусков и образцов заполнения к ним).
-              </p>
+            <div class="col-lg-5 col-md-6 col-sm-12 mt-5">
+                
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body p-4">
+                        <span class="text-secondary text-uppercase fw-semibold" style="font-size: 0.85rem; letter-spacing: 0.05em;">Скачать документ</span>
+                        <h1 class="h4 fw-bold mt-2 mb-4 text-dark" style="line-height: 1.4;">{{ document.title }}</h1>
+                        
+                        <div class="mb-4">
+                            {% if document.type_name_1 %}
+                                <span class="badge bg-primary me-1">{{ document.type_name_1 }}</span>
+                            {% endif %}
+                            {% if document.type_name_2 %}
+                                <span class="badge bg-secondary">{{ document.type_name_2 }}</span>
+                            {% endif %}
+                        </div>
+
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><i class="fa-regular fa-calendar me-2"></i> Дата добавления</span>
+                                <span class="fw-medium">{{ document.date | date('d.m.Y') }} г.</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><i class="fa-solid fa-file-lines me-2"></i> Тип файла</span>
+                                <span class="text-uppercase fw-medium text-primary">{{ document.mime }}</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><i class="fa-solid fa-hard-drive me-2"></i> Размер</span>
+                                <span class="fw-medium">{{ document.size }}</span>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center border-bottom-0">
+                                <span class="text-muted"><i class="fa-solid fa-download me-2"></i> Скачиваний</span>
+                                <span class="fw-medium">{{ document.count }}</span>
+                            </li>
+                        </ul>
+
+                        <div class="alert alert-light border border-info-subtle py-2 px-3 bg-opacity-50" role="alert">
+                            <small class="text-muted d-flex">
+                                <i class="fa-solid fa-circle-info mt-1 me-2 text-info"></i>
+                                <span>Для загрузки документа нажмите на кнопку ниже. Скачивание начнется автоматически.</span>
+                            </small>
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4 mb-2">
+                            {% include '/templates/parts/download.twig' %}
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-6 col-sm-12 mt-5 ">
-                <h5 class="mb-3">Предварительный просмотр текста документа</h5>
+             <div class="col-lg-7 col-md-6 col-sm-12 mt-5">
+                <h5 class="mb-4 fw-bold text-dark"><i class="fa-solid fa-eye text-primary me-2"></i>Предварительный просмотр документа</h5>
                 <div class="preview">
                     {% if preview_document is null %}
-                        <p>Предварительный просмотр документа недоступен.</p>
+                        <div class="alert alert-secondary text-center py-5 border-0 shadow-sm">
+                            <i class="fa-regular fa-file-excel fa-3x text-muted mb-3 opacity-50"></i>
+                            <p class="mb-0 text-muted">Для данного документа предварительный просмотр недоступен.</p>
+                        </div>
                     {% else %}
-                        <div oncontextmenu="return false;" onselectstart="return false;">{{ preview_document|raw }}</div>
+                        <style>
+                            .document-page-wrapper {
+                                background: #f0f2f5;
+                                padding: 20px;
+                                border-radius: 8px;
+                            }
+                            .document-page {
+                                background: #fff;
+                                padding: 40px 50px;
+                                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                min-height: 1000px;
+                                max-height: 1500px;
+                                overflow: hidden;
+                                font-family: "Times New Roman", Times, serif;
+                                font-size: 14pt;
+                                line-height: 1.5;
+                                color: #000;
+                                position: relative;
+                            }
+                            .document-page table {
+                                width: 100% !important;
+                                border-collapse: collapse;
+                            }
+                            .document-page td, .document-page th {
+                                border: 1px solid #000;
+                                padding: 4px;
+                            }
+                            .document-fade {
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 250px;
+                                background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 90%);
+                                pointer-events: none;
+                            }
+                        </style>
+                        <div class="document-page-wrapper shadow-sm">
+                            <div class="document-page" oncontextmenu="return false;" onselectstart="return false;">
+                                {{ preview_document|raw }}
+                                <div class="document-fade"></div>
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-12 ">
-                <h2>Еще документы из раздела: {{ template.name }}</h2>
-                <div class="d-flex flex-wrap">
-
+        
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <hr class="mb-5 text-muted opacity-25">
+                <h3 class="fw-bold h4 mb-4">Еще документы из раздела: <span class="text-primary">{{ template.name }}</span></h3>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     {% for document in lasts %}
-                        <div class="card document-card m-3">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <small><a href="/document/{{ document.template_id }}/{{ document.id }}">{{ document.title }}</a></small>
+                        <div class="col">
+                            <div class="card h-100 shadow-sm border-0 document-card transition-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title h6 mb-3" style="line-height: 1.4;">
+                                        <a href="/document/{{ document.template_id }}/{{ document.id }}" class="text-decoration-none text-dark stretched-link">{{ document.title }}</a>
+                                    </h5>
                                 </div>
-                            </div>
-                            <div class="card-footer document-footer d-flex justify-content-between">
-                                <span><i class="fa-regular fa-calendar-days"></i> {{ document.date | date("d.m.Y") }}</span>
-                                <span>Размер:  {{ document.size }}</span>
-                                <span><i class="fa-solid fa-download"></i> {{ document.count }}</span>
+                                <div class="card-footer bg-transparent border-top-0 pt-0 document-footer d-flex justify-content-between text-muted small">
+                                    <span><i class="fa-regular fa-calendar-days me-1"></i> {{ document.date | date("d.m.Y") }}</span>
+                                    <span>{{ document.size }}</span>
+                                    <span><i class="fa-solid fa-download me-1"></i> {{ document.count }}</span>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-
             </div>
-
         </div>
     </div>
+
+    <!-- Эффекты наведения -->
+    <style>
+        .transition-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .transition-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        }
+        .document-card .stretched-link:hover {
+            color: #0d6efd !important;
+        }
+    </style>
 {% endblock %}

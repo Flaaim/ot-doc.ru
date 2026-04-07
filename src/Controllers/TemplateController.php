@@ -49,9 +49,4 @@ class TemplateController extends AbstractController
         exit(json_encode(['data' => $instructions]));
     }
 
-    /* ПРИКАЗЫ */
-    public function orders(): void
-    {
-
-    }
 }

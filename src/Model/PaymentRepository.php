@@ -49,7 +49,7 @@ class PaymentRepository implements Payment
      * @throws ApiConnectionException
      * @throws UnauthorizedException
      */
-    public function createPayment(int $userId, float $amount, string $description, string $returnUrl): string
+    public function createPayment(int $userId, float $amount, string $description, string $returnUrl, string $plan = 'lifetime'): string
     {
         $payment = $this->client->createPayment([
             'amount' => [
@@ -64,6 +64,7 @@ class PaymentRepository implements Payment
             'description' => $description,
             'metadata' => [
                 'user_id' => $userId,
+                'plan' => $plan,
             ],
         ]);
         $this->model->savePaymentToDatabase($userId, $payment->getId());
@@ -115,10 +116,11 @@ class PaymentRepository implements Payment
     private function processSuccessfulPayment($payment): void
     {
         $userId = $payment->getMetadata()->user_id;
+        $plan = $payment->getMetadata()->plan ?? 'lifetime';
         $paymentId = $payment->getId();
 
         // Обновляем статус подписки пользователя в базе данных
-        $this->setUserSubscription($userId, $this->checkPaymentStatus($paymentId));
+        $this->setUserSubscription($userId, $this->checkPaymentStatus($paymentId), $plan);
 
         // Логируем успешный платеж
         //$this->logPayment($paymentId, 'success');
@@ -132,10 +134,10 @@ class PaymentRepository implements Payment
         //$this->logPayment($paymentId, 'waiting_for_capture');
     }
 
-    private function setUserSubscription(int $userId, string $payment_status): void
+    private function setUserSubscription(int $userId, string $payment_status, string $plan = 'lifetime'): void
     {
         $this->model->updatePaymentStatus($userId, $payment_status);
-        if($this->subscribe->setSubscribe($userId)){
+        if($this->subscribe->setSubscribe($userId, $plan)){
             FlashMessage::add('success', 'Подписка активирована!');
             exit;
         }

@@ -17,7 +17,7 @@ class PreviewDocument
             $this->document_path = $document_path;
             $phpWord = IOFactory::load($document_path);
             $sections = $phpWord->getSections();
-            $this->text = $this->getTextFromDocument($sections);
+            $this->text = $this->getTextFromDocument($phpWord);
             $this->htmlWriter = new HTML($phpWord);
         }catch (\Exception $e){
             $logger = new Logger();
@@ -29,17 +29,21 @@ class PreviewDocument
     {
         return $this->text ?? null;
     }
-    private function getTextFromDocument(array $sections): string
+    private function getTextFromDocument($phpWord): string
     {
-        $text = '';
-        foreach ($sections as $section) {
-            $elements = $section->getElements();
-            foreach ($elements as $element) {
-                if(method_exists($element, "getText")) {
-                    $text .= $element->getText().'<br>';
-                }
-            }
+        $writer = new HTML($phpWord);
+        ob_start();
+        $writer->save('php://output');
+        $html = ob_get_clean();
+
+        // Извлекаем только содержимое <body>
+        if (preg_match('/<body>(.*?)<\/body>/is', $html, $matches)) {
+            $body = $matches[1];
+            // Опционально: можно удалить или заменить специфичные стили, 
+            // но для внешнего вида лучше оставить их (PhpWord генерирует inline стили).
+            return trim($body);
         }
-        return $text;
+
+        return '';
     }
 }
