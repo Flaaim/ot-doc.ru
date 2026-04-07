@@ -22,8 +22,8 @@ set('writable_mode', 'chmod');
         ->set('branch', 'master');
 
 
-// Общие файлы, которые не должны перезаписываться при деплое (например, конфигурация БД)
-set('shared_files', ['config/env/.env']);
+// Файлы
+set('shared_files', []);
 
 // Общие директории
 set('shared_dirs', [

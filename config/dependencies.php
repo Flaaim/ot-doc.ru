@@ -8,16 +8,12 @@ if(file_exists(__DIR__.'/env/'.$file)){
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__.'/env/', $file);
     $dotenv->load();
 }else{
-    exit(".Env file not found");
+    exit(".Env file not found at " . __DIR__.'/env/'.$file);
 }
 
-$files = glob(__DIR__.'/env/*.php');
+// Вместо glob() просто возвращаем конфиг из system.php
+if (!file_exists(__DIR__.'/system.php')) {
+    exit("system.php not found in config directory!");
+}
 
-$configs = array_map(
-    static function ($file) {
-        return require $file;
-    },
-    $files
-);
-
-return array_merge_recursive(...$configs);
+return require __DIR__.'/system.php';
