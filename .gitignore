@@ -2,4 +2,5 @@ config/common/.env
 /vendor
 config/common/dev.env
 /logs
-/config
+/config/cache
+/config/common/config.php
