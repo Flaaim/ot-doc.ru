@@ -18,6 +18,7 @@ use YooKassa\Common\Exceptions\NotFoundException;
 use YooKassa\Common\Exceptions\ResponseProcessingException;
 use YooKassa\Common\Exceptions\TooManyRequestsException;
 use YooKassa\Common\Exceptions\UnauthorizedException;
+use App\Model\ProfileRepository;
 use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationSucceeded;
 use YooKassa\Model\Notification\NotificationWaitingForCapture;
@@ -113,17 +114,24 @@ class PaymentRepository implements Payment
         }
     }
 
+
     private function processSuccessfulPayment($payment): void
     {
         $userId = $payment->getMetadata()->user_id;
         $plan = $payment->getMetadata()->plan ?? 'lifetime';
         $paymentId = $payment->getId();
 
-        // Обновляем статус подписки пользователя в базе данных
+        // Update user subscription status
         $this->setUserSubscription($userId, $this->checkPaymentStatus($paymentId), $plan);
 
-        // Логируем успешный платеж
-        //$this->logPayment($paymentId, 'success');
+        // Grant a single download attempt for one-time purchase
+        if ($plan === 'single') {
+            $profileRepo = new ProfileRepository($this->model->db());
+            $profileRepo->addAttempts($userId, 1);
+        }
+
+        // Log successful payment
+        // $this->logPayment($paymentId, 'success');
     }
 
     private function processWaitingForCapture($payment): void

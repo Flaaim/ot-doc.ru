@@ -42,5 +42,18 @@ class PDOProfile extends PDO implements DB
         }
     }
 
+    public function addAttempts(string $table, int $id, int $count = 1): bool
+    {
+        $sql = "UPDATE " . $table . " SET attempts = attempts + :count WHERE user_id = :id";
+        try{
+            $stmt = $this->db()->prepare($sql);
+            $stmt->bindValue(':count', $count, \PDO::PARAM_INT);
+            $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+            return $stmt->execute();
+        }catch (\PDOException $e){
+            throw new \PDOException($e->getMessage());
+        }
+    }
+
 
 }

@@ -44,4 +44,9 @@ class ProfileRepository implements Repository
         return $this->model->updateAttempts($this->table, $user_id);
     }
 
+    public function addAttempts(int $user_id, int $count = 1): bool
+    {
+        return $this->model->addAttempts($this->table, $user_id, $count);
+    }
+
 }

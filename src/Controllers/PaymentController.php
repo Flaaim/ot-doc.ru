@@ -27,7 +27,7 @@ class PaymentController extends AbstractController
         }
 
         $plan = $_GET['plan'] ?? null;
-        if (!in_array($plan, ['1_month', '1_year', 'lifetime'])) {
+        if (!in_array($plan, ['1_month', '1_year', 'lifetime', 'single'])) {
             header('Location: /payment/subscribe', 301);
             exit;
         }
@@ -47,6 +47,10 @@ class PaymentController extends AbstractController
                 $amount = 1990;
                 $description = 'Пожизненный доступ';
                 break;
+            case 'single':
+                $amount = 75;
+                $description = 'Одноразовое скачивание документа';
+                break;
         }
 
         $client = new Client();
@@ -56,9 +60,9 @@ class PaymentController extends AbstractController
         );
         $repository = new PaymentRepository($this->container['db'], $client);
         $paymentUrl = $repository->createPayment(
-            $this->container['auth']->getUserId(), 
-            $amount, 
-            $description, 
+            $this->container['auth']->getUserId(),
+            $amount,
+            $description,
             $this->container['config']['init']['PATH'].'/cabinet',
             $plan
         );

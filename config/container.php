@@ -11,6 +11,7 @@ use Twig\Loader\FilesystemLoader;
 use Twig\TwigFunction;
 
 $container = new Container();
+
 $container['config'] = require __DIR__ . '/dependencies.php';
 $container['db'] = function ($c) {
     $db = $c['config']['database'];
