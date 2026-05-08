@@ -121,13 +121,14 @@ class PaymentRepository implements Payment
         $plan = $payment->getMetadata()->plan ?? 'lifetime';
         $paymentId = $payment->getId();
 
-        // Update user subscription status
-        $this->setUserSubscription($userId, $this->checkPaymentStatus($paymentId), $plan);
-
-        // Grant a single download attempt for one-time purchase
+        // Grant a single download attempt for one-time purchase (no subscription activation)
         if ($plan === 'single') {
             $profileRepo = new ProfileRepository($this->model->db());
             $profileRepo->addAttempts($userId, 1);
+            $this->model->updatePaymentStatus($userId, $this->checkPaymentStatus($paymentId));
+        } else {
+            // Update user subscription status for subscription plans
+            $this->setUserSubscription($userId, $this->checkPaymentStatus($paymentId), $plan);
         }
 
         // Log successful payment
