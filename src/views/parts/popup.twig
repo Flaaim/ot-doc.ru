@@ -1,0 +1,173 @@
+<style>
+.promo-popup-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+.promo-popup-overlay--visible {
+    opacity: 1;
+}
+.promo-popup {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 460px;
+    width: 100%;
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 101, 156, 0.18), 0 4px 16px rgba(0,0,0,0.12);
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.promo-popup-overlay--visible .promo-popup {
+    transform: translateY(0) scale(1);
+}
+.promo-popup__close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s, transform 0.2s;
+}
+.promo-popup__close:hover { color: #333; transform: rotate(90deg); }
+.promo-popup__icon { margin-bottom: 1.25rem; }
+.promo-popup__icon svg { width: 72px; height: 72px; }
+.promo-popup__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+.promo-popup__text {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+}
+.promo-popup__actions { display: flex; flex-direction: column; gap: 0.65rem; }
+.promo-popup__btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.promo-popup__btn--primary {
+    background: linear-gradient(135deg, #7B5BF5, #5B3FD4);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(123, 91, 245, 0.40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.promo-popup__btn--primary:hover {
+    background: linear-gradient(135deg, #6a4de0, #4a31b8);
+    color: #fff;
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+@media (max-width: 480px) {
+    .promo-popup { padding: 2rem 1.25rem 1.5rem; }
+    .promo-popup__title { font-size: 1.15rem; }
+}
+</style>
+
+<!-- Popup Modal (shown every 3 days) -->
+<div id="promo-popup-overlay" class="promo-popup-overlay" style="display:none;" aria-hidden="true">
+    <div class="promo-popup" role="dialog" aria-modal="true" aria-labelledby="promo-popup-title">
+        <button class="promo-popup__close" id="promo-popup-close" aria-label="Закрыть">&times;</button>
+
+        <div class="promo-popup__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="32" fill="#7B5BF5"/>
+                <!-- Max messenger M icon -->
+                <text x="32" y="44" font-family="Arial, sans-serif" font-size="30" font-weight="900" fill="white" text-anchor="middle">M</text>
+            </svg>
+        </div>
+
+        <h2 class="promo-popup__title" id="promo-popup-title">Мы в Max&#160;мессенджере!<br>Подписывайтесь!</h2>
+
+        <p class="promo-popup__text">
+            Подписывайтесь на мой канал в <strong>Max</strong> и получайте свежие документы по охране труда,
+            новости законодательства и полезные материалы первыми.
+        </p>
+
+        <div class="promo-popup__actions">
+            <a href="https://max.ru/join/5W74A2gVf_4ziBIaFEzcoXIja_tDU3zG24BhTfC7Xqo" target="_blank" rel="noopener noreferrer" class="promo-popup__btn promo-popup__btn--primary" id="promo-popup-max">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="12" fill="rgba(255,255,255,0.2)"/><text x="12" y="17" font-family="Arial" font-size="13" font-weight="900" fill="white" text-anchor="middle">M</text></svg>
+                Подписаться в Max
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var POPUP_KEY = 'promo_popup_last_shown';
+    var DAYS = 3;
+    var MS = DAYS * 24 * 60 * 60 * 1000;
+
+    function shouldShow() {
+        try {
+            var t = localStorage.getItem(POPUP_KEY);
+            return !t || (Date.now() - parseInt(t, 10)) >= MS;
+        } catch (e) { return true; }
+    }
+
+    function hide() {
+        var el = document.getElementById('promo-popup-overlay');
+        if (!el) return;
+        el.classList.remove('promo-popup-overlay--visible');
+        setTimeout(function () { el.style.display = 'none'; }, 350);
+    }
+
+    function show() {
+        var el = document.getElementById('promo-popup-overlay');
+        if (!el) return;
+        el.style.cssText = 'display:flex !important;';
+        void el.offsetWidth;
+        el.classList.add('promo-popup-overlay--visible');
+        try { localStorage.setItem(POPUP_KEY, Date.now().toString()); } catch (e) {}
+    }
+
+    function init() {
+        if (!shouldShow()) return;
+        setTimeout(show, 2000);
+
+        var btnClose = document.getElementById('promo-popup-close');
+        if (btnClose) btnClose.addEventListener('click', hide);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>

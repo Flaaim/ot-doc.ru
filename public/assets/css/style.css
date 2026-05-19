@@ -182,3 +182,136 @@ table a {
     border-radius: 3px;
     text-decoration: none;
 }
+
+/* ===== Promo Popup ===== */
+.promo-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9999;
+    display: none; /* JS выставит flex когда нужно */
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    backdrop-filter: blur(3px);
+}
+
+.promo-popup-overlay--visible {
+    opacity: 1;
+}
+
+.promo-popup {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 460px;
+    width: 100%;
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 101, 156, 0.18), 0 4px 16px rgba(0,0,0,0.12);
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+}
+
+.promo-popup-overlay--visible .promo-popup {
+    transform: translateY(0) scale(1);
+}
+
+.promo-popup__close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.promo-popup__close:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+.promo-popup__icon {
+    margin-bottom: 1.25rem;
+}
+
+.promo-popup__icon svg {
+    width: 72px;
+    height: 72px;
+}
+
+.promo-popup__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+.promo-popup__text {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+}
+
+.promo-popup__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.promo-popup__btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.promo-popup__btn--primary {
+    background: linear-gradient(135deg, #00659c, #0085cc);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 101, 156, 0.35);
+}
+
+.promo-popup__btn--primary:hover {
+    background: linear-gradient(135deg, #005580, #006fb3);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 101, 156, 0.45);
+    text-decoration: none;
+}
+
+.promo-popup__btn--secondary {
+    background: #f1eff0;
+    color: #555;
+}
+
+.promo-popup__btn--secondary:hover {
+    background: #e0dee0;
+    color: #333;
+}
+
+@media (max-width: 480px) {
+    .promo-popup {
+        padding: 2rem 1.25rem 1.5rem;
+    }
+
+    .promo-popup__title {
+        font-size: 1.15rem;
+    }
+}
