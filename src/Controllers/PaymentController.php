@@ -36,11 +36,11 @@ class PaymentController extends AbstractController
         $description = 'Оплата подписки';
         switch ($plan) {
             case '1_month':
-                $amount = 299;
+                $amount = 399;
                 $description = 'Подписка на 1 месяц';
                 break;
             case '1_year':
-                $amount = 1499;
+                $amount = 1599;
                 $description = 'Подписка на 1 год';
                 break;
             case 'lifetime':
@@ -48,8 +48,8 @@ class PaymentController extends AbstractController
                 $description = 'Пожизненный доступ';
                 break;
             case 'single':
-                $amount = 75;
-                $description = 'Одноразовое скачивание документа';
+                $amount = 150;
+                $description = 'Разовое скачивание документа';
                 break;
         }
 
