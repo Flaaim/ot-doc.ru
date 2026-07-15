@@ -22,5 +22,8 @@
     "psr-4": {
       "Tests\\": "tests/"
     }
+  },
+  "require-dev": {
+    "deployer/deployer": "^7.5"
   }
 }
